@@ -10,7 +10,7 @@ package Backend;
  */
 public class RowChecker extends Checker {
 
-    public RowChecker(Object board) {
+    public RowChecker(SudokuBoard board) {
         super(board);
     }
 
@@ -30,19 +30,19 @@ public class RowChecker extends Checker {
             int num = row[i];
             if (found[num])//law rakm mawgod ydy error message else y add en this number is seen
             {
-                addError(formateError(rowIndex, num, row));
+                addError(formatError(rowIndex, num, row));
             } else {
                 found[num] = true;
             }
         }
     }
 
-    private String formateError(int rowindex, int dupNum, int[] row) {
+    private String formatError(int rowindex, int dupNum, int[] row) {
         StringBuilder errorMsg = new StringBuilder();
         errorMsg.append("ROW ").append(rowindex + 1).append(",#").append(dupNum).append(",[");
         for (int i = 0; i < row.length; i++) {
             errorMsg.append(row[i]);
-            if (i < row.length) {
+            if (i < row.length-1) {
                 errorMsg.append(",");
             }
         }
