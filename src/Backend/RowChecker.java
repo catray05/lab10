@@ -8,14 +8,14 @@ package Backend;
  *
  * @author LapTop
  */
-public class RowChecker extends Checker {
+public class RowChecker extends  Checker {
 
     public RowChecker(SudokuBoard board) {
         super(board);
     }
 
     @Override
-    public void check() {
+   public void Check(int[][] arr) {
         for (int i = 0; i < 9; i++) //it loops around all 9 rows 
         {
             checkRow(i);
@@ -49,4 +49,6 @@ public class RowChecker extends Checker {
         errorMsg.append("]");
         return errorMsg.toString();
     }
+
+    
 }
