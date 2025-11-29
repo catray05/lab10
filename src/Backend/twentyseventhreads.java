@@ -65,7 +65,6 @@ public class twentyseventhreads {
         
         for(int i=0;i<boxThreads.size();i++){
             List<String> errors=boxThreads.get(i).getErrors();
-              System.err.println("AT BOX : " + errors.size());
             for(int j=0;j<errors.size();j++)
                 System.out.println(errors.get(j));
         }
