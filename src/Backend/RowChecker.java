@@ -11,19 +11,12 @@ package Backend;
 public class RowChecker extends  Checker {
 
     GetterOfRCB getterfor = new GetterOfRCB();
-
-    public RowChecker(SudokuBoard board) {
+   
+    public RowChecker( int[][] board) {
         super(board);
     }
 
    @Override
-   public void Check(int[][] arr) {
-        for (int i = 0; i < 9; i++) //it loops around all 9 rows 
-        {
-            checkRow(i);
-        }
-    }
-
     public void check(int[][] sudoku) {
         int[][] rows = getterfor.getterfor(sudoku, 'r');
         for (int r = 0; r < 9; r++) {

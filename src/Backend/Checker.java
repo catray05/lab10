@@ -13,14 +13,14 @@ import java.util.List;
  */
 public abstract class Checker {
     
-    private SudokuBoard board;
+    private int [][] board;
     private List<String> errors =new ArrayList<>();
 
-    public Checker(SudokuBoard board) {
+    public Checker(int [][] board) {
         this.board = board;
     }
 
-    public SudokuBoard getBoard() {
+    public int [][] getBoard() {
         return board;
     }
 

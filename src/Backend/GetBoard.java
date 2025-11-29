@@ -13,9 +13,9 @@ import java.util.List;
  *
  * @author it
  */
-public class GetBoard {
+public  class  GetBoard {
     private  final String Pth = "soduku.csv";
-    public void ReadData(){
+    public  void ReadData(){
     try(CSVReader r = new CSVReader(new FileReader(Pth))){
     List<String[]> all = r.readAll();
     
@@ -27,9 +27,15 @@ public class GetBoard {
    if(cell  == null|| cell.isEmpty()){
    B[i][j] = -1;
        System.out.print("Empty"  +"\t" );
+       continue;
+   }
+   int cel = Integer.parseInt(cell);
+   if (cel<=-1){
+       throw new IOException("NUMBERS IN FILE SMALLER THAN 0");
+   
    }
    else{
-   B[i][j] = Integer.parseInt(cell);
+   B[i][j] = cel;
         System.out.print( B[i][j] + "\t");
    
    }

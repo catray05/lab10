@@ -12,12 +12,12 @@ public class CheckerBox extends Checker {
     
     GetterOfRCB getterfor = new GetterOfRCB();
 
-    public CheckerBox(CheckerBox board) {
+    public CheckerBox(int [][] board) {
         super(board);
     }
     
     @Override
-    public void Check(int[][] sudoku )
+    public void check(int[][] sudoku )
     {
         int[][][] boxes = getterfor.getBoxes(sudoku);
         
