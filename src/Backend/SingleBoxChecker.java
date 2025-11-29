@@ -30,7 +30,9 @@ public class SingleBoxChecker extends Checker {
                             break;
                         if(box[rPrev][cPrev] == now) {
                             addError(formatError(counter, now, box));
-                            break;
+                            //break;
+                            //heya 3mtn tele3 msh deh el moshkela
+// deleted 3shan nafs el rakm mmkn yekon mt3ad kaza mara 
                         }
                     }
                 }
