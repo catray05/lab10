@@ -14,9 +14,13 @@ public class Mainone {
         GetBoard gb = new GetBoard();
         gb.ReadData();
         int [][]brd = SingletonBoard.getInstance().getBoard();
+        
         RowChecker row = new RowChecker(brd);
+        row.check(brd);
         CheckerColoumn col = new CheckerColoumn(brd);
+        col.check(brd);
         CheckerBox box = new CheckerBox(brd);
+        box.check(brd);
          int[][] b = SingletonBoard.getInstance().getBoard();
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
