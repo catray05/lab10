@@ -31,8 +31,9 @@ public class CheckerBox extends Checker {
                 for(int col = 0 ; col < 3 ; col ++ ) //kol box feh 3 coloumns
                 {
                     int now = box1[row][col]; //ngeb el value eli 3yzeno (el square DA)
-                    if(now == 0)
+                    if(now == -1)
                     {
+                        //3adi dah feh check gowa el getboard nafso
                         //fady, N3ML EH?
                         continue; //mo2ktan bs
                     }

@@ -26,7 +26,7 @@ public class RowChecker extends  Checker {
             for (int c = 0; c < row.length; c++) {
                 int now = row[c];
 
-                if (now == 0) {
+                if (now == -1) {
                     continue;
                 }
                 for (int k = 0; k < c; k++) {

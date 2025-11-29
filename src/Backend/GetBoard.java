@@ -14,7 +14,12 @@ import java.util.List;
  * @author it
  */
 public  class  GetBoard {
-    private  final String Pth = "soduku.csv";
+    private  String Pth ;
+
+    public GetBoard(String pth) {
+        this.Pth = pth;
+    }
+    
     public  void ReadData(){
     try(CSVReader r = new CSVReader(new FileReader(Pth))){
     List<String[]> all = r.readAll();
@@ -36,13 +41,13 @@ public  class  GetBoard {
    }
    else{
    B[i][j] = cel;
-        System.out.print( B[i][j] + "\t");
+//        System.out.print( B[i][j] + "\t");
    
    }
       
    
    }
-    System.out.println("");
+//    System.out.println("");
    
    }
    SingletonBoard.getInstance().setBoard(B);
