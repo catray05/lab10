@@ -23,7 +23,7 @@ public class CurrentGame extends javax.swing.JFrame {
 
    
     
-    public CurrentGame(Game game, MainStartUp aThis) {
+    public CurrentGame(Game game, Continue parentFrame) {
         
         initComponents();
         this.game=game;

@@ -42,7 +42,7 @@ public class Control implements Controllable {
       
       List<int[]> easyPlaces = rp.generateDistinctPairs(easy);
       List<int[]> mediumPlaces = rp.generateDistinctPairs(medium);
-      List<int[]> hardPlaces = rp.generateDistinctPairs(hard);  //kda makhdt int[] bel amakn eli hattshal
+      List<int[]> hardPlaces = rp.generateDistinctPairs(hard);  //kda akhdt int[] bel amakn eli hattshal
       
       int[][] easyBoard = copyBoard(source);
       int[][] mediumBoard = copyBoard(source);
