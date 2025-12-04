@@ -11,6 +11,7 @@ public class Catalog
   private boolean current; // True if there is a game in progress, False otherwise.
   private boolean allModesExist; // True if there is atleast one game available for eachdifficulty, False otherwise.
   private Saving savee;
+  private Load load;
   
   
  
@@ -21,12 +22,21 @@ public class Catalog
     }
 
     public boolean hasUnfinishedGame() {
-        return current;
+        if(load.hasUnifnishedGame() == null)
+        {
+            return false;
+        }
+        return true;
     }
 
     public boolean hasAllDifficulties() {
-        
-      return allModesExist;
+      
+        if(load.getGame("easy") == null || load.getGame("medium") == null ||  load.getGame("hard") == null )
+        {
+            return false;
+        }
+        return true;
+
     }
   
     public void addNew(Game game) throws IOException    //hena bn7othm fel folders 3ala hsb el level
