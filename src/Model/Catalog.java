@@ -1,5 +1,7 @@
 package Model;
 
+import java.io.IOException;
+
 /**
  *
  * @author DELL
@@ -8,6 +10,7 @@ public class Catalog
 {
   private boolean current; // True if there is a game in progress, False otherwise.
   private boolean allModesExist; // True if there is atleast one game available for eachdifficulty, False otherwise.
+  private Saving savee;
   
   
  
@@ -26,24 +29,11 @@ public class Catalog
       return allModesExist;
     }
   
-    public void addNew(Game game)    //hena bn7othm fel folders 3ala hsb el level
+    public void addNew(Game game) throws IOException    //hena bn7othm fel folders 3ala hsb el level
     {
         if(game!=null)
         {
-            switch(game.getDifficulty())
-            {
-                case "easy":
-                    savee.addGame(game);
-                    break;
-                case "medium":
-                     savee.addGame(game);
-                    break;
-                case "hard":
-                    savee.addGame(game);
-                    break;
-                default:
-                    return;
-            }
+            savee.SavingToFolder(game); 
         }
         else
         {

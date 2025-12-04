@@ -26,7 +26,7 @@ public abstract class MainStartUp implements Viewable {
 
         if (hasUnfinished) {
            
-          Game game = Load.loadUnfinishedGame();
+          //hanwarelo panel, aw frame, theb t continue?
           ///halyan b-handle da
           CurrentGame frame = new CurrentGame(game,this);
           frame.setVisible(true);
