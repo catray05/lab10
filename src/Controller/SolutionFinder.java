@@ -31,7 +31,7 @@ public class SolutionFinder implements StartStrategy{   //third option, if both 
          int[][] solved = Load.loadSolution(file.getPath());
 
         try {
-            control.driveGames(solved); 
+            control.driveGames(solved);  //MESH 3ARFA ANADY MN HANDLER L2NAHA 3YZA GAME TYPE OF OBJECT WANA M3ISH DIFFICULTY ANA LESA 73ML
             JOptionPane.showMessageDialog(null, "Levels generated!");
         } catch (SolutionInvalidException e) {
             JOptionPane.showMessageDialog(null, "Invalid solved file!");

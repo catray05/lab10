@@ -13,30 +13,20 @@ import Model.*;
  */
 public  class MainStartUp {
     private Catalog catalog;
+    private Handler handler;
     private Control control;
 
-    public MainStartUp(Catalog catalog, Control control) {
+    public MainStartUp(Catalog catalog, Handler handler, Control control) {
         this.catalog = catalog;
+        this.handler = handler;
         this.control = control;
     }
 
     public void start() {
-        boolean hasUnfinished = catalog.hasUnfinishedGame();
-        boolean allModesExist = catalog.hasAllDifficulties();
         
-        StartStrategy start;
-        if (hasUnfinished) {
-            start = new ContinueGame(this);
-        }
-        else if (allModesExist) {
-            start = new StartNewGame(this);
-        }
-        else {
-            start = new SolutionFinder(control);
-        }
-
+        StartStrategy start = new StartProxy(catalog, control, this);  //MTAGEN NESHUF HWAR EL CONTROL DA!!
         start.start();
-
+        
     }
     
 
