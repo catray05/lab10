@@ -4,89 +4,36 @@
  */
 package Model;
 
+import java.util.Arrays;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-
+import java.util.ArrayList;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
 /**
  *
  * @author DELL
  */
-public class Load {
-    private final String ezPath = "./easy";
-    private final String midPath = "./medium";
-    private final String hardPath = "./hard";
-    private final String unfinishedPath = "./unfinished";
-   private Catalog c;
+public class Load extends GetBoard{
+    private final String ezPath = "./Levels/easy";
+    private final String midPath = "./Levels/medium";
+    private final String hardPath = "./Levels/hard";
+    private final String unfinishedPath = "./Levels/unfinished";
+    private List<String> names;
+
    
         //han-load el 4, hsb howa easy, medium, hard wala unfinished
 
-  private Catalog init() throws IOException{
+  private void nameshelper() throws NoSuchFileException{
       // 3shan awel ma yebtedi n intialize el catalog
-      boolean ffinalunfin =false;
-      boolean allTypesExist = false;
+    
       File ez = new File(ezPath);
       File mid = new File(midPath);
       File hard = new File(hardPath);
       File unfin = new File(unfinishedPath);
-      if(unfin.exists() && unfin.isDirectory()){
-      File[] contents = unfin.listFiles();
-     
-      int numofunfinished = 0;
-      if(contents!=null ){
-          for(File f :contents){
-              String s = f.toString();
-
-         int ext = s.lastIndexOf(".");
-         String s1 = s.substring(ext);
-         if(s1.equals("csv")){
-         numofunfinished++;
-         
-         }
-         
-              
-             
-          }
-     
-      }
-      if(numofunfinished  == 1){
-     ffinalunfin = true;
-    }
-      
-      else if(numofunfinished>1 ){
-   
-    throw new IOException("SEVERAL UNFINISHED");
-    
-    
-      }else{
-      
-      ffinalunfin =false;
-      }
-      
-      }else{
-          if(!unfin.mkdir()) {
-        throw new NoSuchFileException("FAILED TO CREATE FOLDER");
-    }
-
-      
-      }
-       if(ez.exists() && ez.isDirectory() && mid.exists() && mid.isDirectory() && hard.exists() && hard.isDirectory()){
-      File[] contentsez = ez.listFiles();
-       File[] contentsmid = mid.listFiles();
-        File[] contentshard = hard.listFiles();
-  if(contentsez.length>=1 && contentsmid.length>=1 && contentshard.length>=1){
-  allTypesExist = true;
-  
-  }
-  else{
-  
-  allTypesExist = false;
-  }
-  
-       }
-       else{
        if(!ez.exists()){
        if(!ez.mkdir()){
        throw new NoSuchFileException("FAILED TO CREATE FOLDER");
@@ -102,12 +49,141 @@ public class Load {
        throw new NoSuchFileException("FAILED TO CREATE FOLDER");
        }
        }
-       }
-     
-       c  = new Catalog(ffinalunfin, allTypesExist);
-       return c;
+       File[] contentsez = ez.listFiles();
+       File[] contentsmid = mid.listFiles();
+        File[] contentshard = hard.listFiles();
+   File[] contentsunfin = unfin.listFiles();
+  if(contentsez.length>=1)
+      for(File f : contentsez){
+    String s = f.toString();
+
+         int ext = s.lastIndexOf(".");
+         String s1 = s.substring(ext);
+         if(s1.equals("csv")){
+         names.add(s.substring(0, ext));
+         
+         }
+  
+      }
+  if(contentsmid.length>=1)
+      for(File f : contentsmid){
+    String s = f.toString();
+
+         int ext = s.lastIndexOf(".");
+         String s1 = s.substring(ext);
+         if(s1.equals("csv")){
+         names.add(s.substring(0, ext));
+         
+         }
+  
   }
+  if(contentshard.length>=1)
+      for(File f : contentshard){
+    String s = f.toString();
+
+         int ext = s.lastIndexOf(".");
+         String s1 = s.substring(ext);
+         if(s1.equals("csv")){
+         names.add(s.substring(0, ext));
+         
+         }
+  
+  }
+  
+     if(contentsunfin.length>=1)
+      for(File f : contentshard){
+    String s = f.toString();
+
+         int ext = s.lastIndexOf(".");
+         String s1 = s.substring(ext);
+         if(s1.equals("csv")){
+         names.add(s.substring(0, ext));
+         
+         }
+  
+  }  
+       
+      
+}
+       
+     
+ 
+  public List<String> GetAllNames(){
+      try{
+      nameshelper();
+      }catch(NoSuchFileException e ){
+      e.printStackTrace();
+      }
+  return names;
+  }
+  public int [][] loadGame(char lvl){
+  String path ="";
+ switch (lvl){
+     case 'i':
+          File unfin = new File(unfinishedPath);
+            File[] contentsunfin = unfin.listFiles();
+            int numunfin = 0 ; 
+            if(contentsunfin.length>=1){
+            for(File f : contentsunfin){
+               String fn = f.toString();
+               int i = fn.lastIndexOf(".");
+               String sub = fn.substring(i);
+               if(sub.equals("csv")){
+               numunfin++;
+               }
+            
+            
+            }
+            if(numunfin>=1){
+                System.out.println("MULTIPLE UNFINISHED");
+            return null;
+            
+            }
+            }
+         
+         path = unfinishedPath;
+         
+         break;
+         
+     case 'e':
+         path = ezPath;
+     break;
+       
+     case 'm':
+             path  = midPath;
+             break;
+     case 'h':
+         path  = hardPath;
+         break;
+     default:
+         System.out.println("INVALID ARGUMENT");
+         return null;
+ 
+ 
+ }
+File f = new File(path);
+   File[] content = f.listFiles();
+   if (content != null) {
+    Arrays.sort(content, (f1, f2) -> {
+        try {
+            long t1 = Files.readAttributes(f1.toPath(), BasicFileAttributes.class).creationTime().toMillis();
+            long t2 = Files.readAttributes(f2.toPath(), BasicFileAttributes.class).creationTime().toMillis();
+            return Long.compare(t1, t2);
+        } catch (Exception e) {
+            return 0;
+        }
+        
+    });
+   int data[][] = ReadData(content[0].toString());
+    return data;
+   }
+return null;
+  }
+  
+  }
+  
+  
         //fe method "loadUnfinishedGame"
     
 
-}
+

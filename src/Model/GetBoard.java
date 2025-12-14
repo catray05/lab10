@@ -13,18 +13,13 @@ import java.util.List;
  *
  * @author it
  */
-public  class  GetBoard {
-    private  String pth ;
-
-    public GetBoard(String pth) {
-        this.pth = pth;
-    }
-    
-    public  void ReadData(){
+public  abstract class   GetBoard {
+  int [][] a = new int[9][9];
+    public  int [][] ReadData(String pth){
     try(CSVReader r = new CSVReader(new FileReader(pth))){
     List<String[]> all = r.readAll();
     
-    int [][] a = new int[9][9];
+  
   
    for(int i = 0 ; i < 9 ; i ++ ){
    for(int j = 0 ; j < 9;j++){
@@ -48,15 +43,20 @@ public  class  GetBoard {
    
    }
 //    System.out.println("");
+
+   
+    
    
    }
-   SingletonBoard.getInstance().setBoard(a);
+ 
     }catch(IOException | CsvException e){
         System.err.println("ERROR IN FILE");
     e.printStackTrace();
     }
-    
+   return a ;
     }
+    
+    
 //    public  static void main(String[] args) {
 //        GetBoard gb = new GetBoard();
 //        gb.ReadData();

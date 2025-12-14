@@ -61,6 +61,9 @@ public class Saving {
                 //mfish duplicates!!
                 randomid = test;
             }
+            else{
+            throw new IOException("DUPLICATES OCCUR");
+            }
         
         String fileName = path + "/" + "Sudoku_" + randomid + ".csv";
         
