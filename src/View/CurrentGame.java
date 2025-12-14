@@ -169,16 +169,17 @@ public class CurrentGame extends javax.swing.JFrame {
 
     private void solveBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveBUTTONActionPerformed
        
-        /*int[][]board = game.getBoard();
+        
         
         try{  //3shan DE bt-throw exception
-            int[][] solve = control.solveGame(board); //722na fekrt enena bnady el implementation
-            //n-handle ba el solve
+            int[][] solve = handler.solveGame(game); //722na fekrt enena bnady el implementation
+            //3yzn n uoload new board on the screen
+            JOptionPane.showMessageDialog(this, "GAME SOLVED !!");
         }
         catch(InvalidGame exception)
         {
             JOptionPane.showMessageDialog(this, "ERROR!");
-        }*/
+        }
         
         
     }//GEN-LAST:event_solveBUTTONActionPerformed
