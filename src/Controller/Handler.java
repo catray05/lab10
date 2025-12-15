@@ -12,6 +12,7 @@ import Model.Catalog;
 import Model.DifficultyEnum;
 import Model.Game;
 import Model.Load;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -80,10 +81,25 @@ public class Handler implements Viewable{
     }
 
     @Override
-    public int[][] solveGame(Game game) throws InvalidGame {
+    public int[] solveGame(Game game) throws InvalidGame {
    if (game == null) throw new InvalidGame("no game found");
-        return control.solveGame(game.getBoard());
-    
+   int [][]ogBoard = game.getBoard() ;
+   int [][] solvedBoard=control.solveGame(game.getBoard());
+        List<int[]> emptyCells=Control.getEmptyCells(ogBoard);
+        int [] result=new int[15];//5*3 3ashn kol value 3amlt store le row colum before it
+        int point=0;//hast3mlha eny azwd row column value fel array 
+        for(int i=0;i<emptyCells.size();i++)
+        {
+        int r=emptyCells.get(i)[0];
+        int c=emptyCells.get(i)[1];
+        int sol=solvedBoard[r][c];
+        result[point++]=r;// data is stored b tarteb row col value
+        result[point++]=c;
+        result[point++]=sol;
+        }
+   
+        return result;
+     
     }
 
     @Override

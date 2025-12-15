@@ -18,13 +18,7 @@ public class Control implements Controllable {
     
     private Catalog catalog;
     Load load;
-    private Handler handler;
-
-    public Control(  Handler handler) {
-      
-        this.handler = handler(this);
-    }
-    
+   
     @Override
     public Catalog getCatalog() {
         return catalog;
@@ -94,10 +88,8 @@ public class Control implements Controllable {
     @Override
     public int[][] solveGame(int[][] game) throws InvalidGame {
        
-           List<int[]> emptyCells = getEmptyCells(game);
-        if (emptyCells.size() != 5) {
-            throw new InvalidGame("Exactly 5 empty cells required.");
-        }
+  List<int[]> emptyCells = getEmptyCells(game);
+        if (emptyCells.size() != 5) throw new InvalidGame("exactly 5 empty cell needed");
 
         SudokoSolver solver = new SudokoSolver(game, new ArrayList<>(emptyCells));
         return solver.solve();
