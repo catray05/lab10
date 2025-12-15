@@ -172,9 +172,20 @@ public class CurrentGame extends javax.swing.JFrame {
         
         
         try{  //3shan DE bt-throw exception
-            int[][] solve = handler.solveGame(game); //722na fekrt enena bnady el implementation
-            //3yzn n uoload new board on the screen
-            JOptionPane.showMessageDialog(this, "GAME SOLVED !!");
+            int[]solve = handler.solveGame(game); //722na fekrt enena bnady el implementation
+            if(solve.length!=15)
+            {
+            throw new InvalidGame("solution is not in the correct format");
+            }
+            for(int i= 0;i<solve.length;i+=3)
+            {
+            int row = solve[i];
+            int col = solve[i + 1];
+            int value = solve[i + 2];
+            matrixGame.setValueAt(value, row, col);
+            game.getBoard()[row][col] = value;//b update the actual board mesh just for display
+            }
+            JOptionPane.showMessageDialog(this, "GAME SOLVED!!!");
         }
         catch(InvalidGame exception)
         {
