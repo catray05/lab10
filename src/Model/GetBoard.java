@@ -7,6 +7,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +15,10 @@ import java.util.List;
  * @author it
  */
 public  abstract class   GetBoard {
-  int [][] a = new int[9][9];
-    public  int [][] ReadData(String pth){
+     public  static int[][] ReadData(String pth){
+         int [][] a = new int[9][9];
+  List<int[]> edit=new ArrayList<>() ;
+
     try(CSVReader r = new CSVReader(new FileReader(pth))){
     List<String[]> all = r.readAll();
     
@@ -41,34 +44,29 @@ public  abstract class   GetBoard {
    }
       
    
-   }
+   }}
 //    System.out.println("");
-
-   
-    
-   
-   }
- 
-    }catch(IOException | CsvException e){
-        System.err.println("ERROR IN FILE");
-    e.printStackTrace();
+ String[] nextLine;
+   if(all.size()>9){
+       
+       nextLine=all.get(9);
+        for (int i = 0; i < nextLine.length; i++) {
+            int pos = Integer.parseInt(nextLine[i]);
+            int x = pos/10;
+            int y = pos%10;
+            a[x][y] = -Math.abs(a[x][y]);
+        }
+        
+   }}
+    catch(Exception e){
+        e.printStackTrace();
+        
     }
-   return a ;
-    }
-    
-    
-//    public  static void main(String[] args) {
-//        GetBoard gb = new GetBoard();
-//        gb.ReadData();
-//        int[][] b = SingletonBoard.getInstance().getBoard();
-//    for(int i = 0; i < 9; i++){
-//        for(int j = 0; j < 9; j++){
-//            System.out.print(b[i][j] + "\t");
-//        }
-//        System.out.println("");
-//    }
-//    }
+    return a;
+     }
    
+   
+    
     
 }
 

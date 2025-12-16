@@ -131,7 +131,7 @@ public class Load extends GetBoard{
                if(sub.equals("csv")){
                numunfin++;
                }
-            
+       
             
             }
             if(numunfin>=1){
@@ -174,13 +174,20 @@ File f = new File(path);
         }
         
     });
-   int data[][] = ReadData(content[0].toString());
-    return data;
+   
+    return ReadData(path);
    }
 return null;
   }
-  
+  public static int [][] loadSolution(File f){
+if(!f.exists()){
+return null;
+}
+return ReadData(f.toString());
+
   }
+
+}
   
   
         //fe method "loadUnfinishedGame"
