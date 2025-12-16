@@ -30,7 +30,20 @@ private  List<int[]>  editable;
     public int[][] getBoard() { 
         return board; 
     }
+public void editcell(int row,int col,int updatedValue) throws IllegalArgumentException{
+if(!editable.contains(new int []{row , col})){
+throw new IllegalArgumentException("NOT EDITABLE");
+}
+else{
+if(updatedValue<0){
+throw new IllegalArgumentException("VALUE IS NEGATIVE");
+}
+else{
+board[row][col] = updatedValue;
 
+}
+}
+}
     public void setBoard(int[][] grid) { 
         this.board = copyBoard(grid); 
     }

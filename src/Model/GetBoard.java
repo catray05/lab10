@@ -26,9 +26,9 @@ public  abstract class   GetBoard {
   
    for(int i = 0 ; i < 9 ; i ++ ){
    for(int j = 0 ; j < 9;j++){
-   String cell = all.get(i)[j];
+   String cell = all.get(i)[j].trim();
    if(cell  == null|| cell.isEmpty()){
-   a[i][j] = -1;
+   a[i][j] = 0;
        System.out.print("Empty"  +"\t" );
        continue;
    }

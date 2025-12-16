@@ -7,6 +7,7 @@ import Controller.Handler;
 
 import Model.Game;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -28,6 +29,7 @@ public class CurrentGame extends javax.swing.JFrame {
         
         initComponents();
         this.game=game;
+        loadtable();
     }
 
     private CurrentGame() {
@@ -36,10 +38,12 @@ public class CurrentGame extends javax.swing.JFrame {
 class sudokuTable extends javax.swing.table.DefaultTableModel{
     private final List<int []>edit;
 
-        public sudokuTable(List edit, int rowCount, int columnCount) {
-            super(rowCount, columnCount);
+        public sudokuTable(List<int[]> edit, Object[][] data, Object[] columnNames) {
+            super(data, columnNames);
             this.edit = edit;
         }
+
+       
 
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -51,11 +55,53 @@ class sudokuTable extends javax.swing.table.DefaultTableModel{
             return false; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         }
 
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return Integer.class; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        }
+        
+
     
     
     
 }
-private 
+
+private void loadtable(){
+Object[][] data = new Object[9][9];
+int[][] board = game.getBoard();
+for (int i = 0 ; i < 9 ; i ++ ) {
+for (int j = 0 ; j < 9 ; j ++ ) {
+if (board[i][j] == 0){
+data[i][j]=null;
+}else{
+data[i][j]  = board[i][j];
+}
+}
+}
+String[] cols = {"", "", "", "", "", "", "", "", ""};
+matrixGame.setModel(
+new sudokuTable(game.getEditable(),data, cols)
+    );
+
+matrixGame.getModel().addTableModelListener(l -> {
+int r = l.getFirstRow();
+int c = l.getColumn();
+Object val = matrixGame.getValueAt(r, c);
+try{
+if(val == null){
+ game.editcell(r, c, 0);
+
+}
+else{
+
+game.editcell(r, c, (int)val);
+}}
+catch(IllegalArgumentException e){
+    JOptionPane.showMessageDialog(this, "INVALID VALUE ENTERED/ENTERED DATA IN UNEDITABLE BLOCK", "ERROR",ERROR);
+}
+});
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

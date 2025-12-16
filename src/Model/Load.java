@@ -90,7 +90,7 @@ public class Load extends GetBoard{
   
   }
   
-     if(contentsunfin.length>=1)
+     if(contentsunfin!=null&&contentsunfin.length>=1 )
       for(File f : contentshard){
     String s = f.toString();
 
@@ -175,7 +175,12 @@ File f = new File(path);
         
     });
    
-    return ReadData(path);
+   
+    int[][] data =  ReadData(content[0].toString());
+     if (!content[0].delete()) {
+        System.out.println("NOT DELETED");
+    }
+     return data;
    }
 return null;
   }
@@ -183,11 +188,16 @@ return null;
 if(!f.exists()){
 return null;
 }
-return ReadData(f.toString());
-
+int[][] data =  ReadData(f.toString());
+if (!f.delete()) {
+System.out.println("NOT DELETED");
+    }
+return data;
   }
 
+
 }
+
   
   
         //fe method "loadUnfinishedGame"
