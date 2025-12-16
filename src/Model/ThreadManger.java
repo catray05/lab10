@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Backend;
+package Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class ThreadManger implements Subject{
     public boolean isSolutionFound(){
     return done;
     }
-    public int [][] solve() throws InvalidSolutioException
+    public int [][] solve() throws InvalidGame
     {
         
         int parts=(9*9*9*9*9)/threadNumber;//n2sm el total number of perm on the threads
@@ -85,7 +85,7 @@ public class ThreadManger implements Subject{
             } catch (InterruptedException ignored) {}
         }
         if (!done) {
-            throw new InvalidSolutioException("no solution found");
+            throw new InvalidGame("no solution found");
         }
          
     

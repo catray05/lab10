@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Backend;
+package Model;
 
-import Backend.Observer;
-import Backend.ThreadManger;
+import Model.ThreadManger;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +23,7 @@ public class SudokoSolver implements Observer
         this.empty = empty;
         if(empty.size()!=5)
         {
-        throw new InvalidSolutioException("empty spaces must be 5!!");
+        throw new InvalidGame("empty spaces must be 5!!");
         
         }
     }
@@ -34,7 +33,7 @@ public class SudokoSolver implements Observer
     this.solution=solvedBoard;
     
     }
-    public int [][] solve() throws InvalidSolutioException
+    public int [][] solve() throws InvalidGame
    {
        ThreadManger threadManger=new ThreadManger(board, empty);
        threadManger.add(this);

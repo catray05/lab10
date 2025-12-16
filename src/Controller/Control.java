@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Backend.SudokoSolver;
+import Model.SudokoSolver;
 import Model.*;
 import java.io.IOException;
 import java.util.ArrayList;
