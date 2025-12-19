@@ -266,14 +266,20 @@ catch(IllegalArgumentException e){
     }
     private void solveBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveBUTTONActionPerformed
        
-      
-        
+      int[]solve =null;
+      try {
+       solve = handler.solveGame(this.game); 
+      }
+      catch (InvalidGame e){
+       JOptionPane.showMessageDialog(this, "ERROR!");
+      }
+        if(solve!=null){
         try{  //3shan DE bt-throw exception
-            try{
-            int[]solve = handler.solveGame(game); //722na fekrt enena bnady el implementation
-            }catch(InvalidGame exception){
-            JOptionPane.showMessageDialog(this, "ERROR!");
-        }
+           
+           //722na fekrt enena bnady el implementation
+          
+            
+        
             if(solve.length!=15)
             {
             throw new InvalidGame("solution is not in the correct format");//in case haga was wrong 
@@ -292,7 +298,7 @@ catch(IllegalArgumentException e){
         {
             JOptionPane.showMessageDialog(this, "ERROR!");
         }
-        
+        }
         
     }//GEN-LAST:event_solveBUTTONActionPerformed
 
