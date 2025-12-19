@@ -6,6 +6,7 @@ package View;
 import Controller.Handler;
 
 import Model.Game;
+import Model.InvalidGame;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -268,7 +269,11 @@ catch(IllegalArgumentException e){
       
         
         try{  //3shan DE bt-throw exception
+            try{
             int[]solve = handler.solveGame(game); //722na fekrt enena bnady el implementation
+            }catch(InvalidGame exception){
+            JOptionPane.showMessageDialog(this, "ERROR!");
+        }
             if(solve.length!=15)
             {
             throw new InvalidGame("solution is not in the correct format");//in case haga was wrong 
