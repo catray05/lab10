@@ -8,6 +8,6 @@ package Model;
  *
  * @author LapTop
  */
-public class InvalidGame {
+public class InvalidGame extends Throwable{
     
 }

@@ -8,7 +8,7 @@ package Model;
  *
  * @author LapTop
  */
-public class InvalidSolutionException extends Exception {
+public class InvalidSolutionException extends Throwable {
 
     public InvalidSolutionException(String message) {
         super(message);
