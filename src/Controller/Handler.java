@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 public class Handler implements Viewable{
 
     private Catalog catalog;
-    private Controllable control; 
+    private Control control; 
 
     public Handler() {
     
@@ -140,6 +140,19 @@ public class Handler implements Viewable{
 
     @Override
     public void logUserAction(String userAction) throws IOException {
-       control.logUserAction(new UserAction(userAction));   //byb3t ll control el string bta3 el action 34an el control y3ml append fl file
+        String noBracket=userAction.substring(1, userAction.length()-1);
+        String[] parts=noBracket.split(",");
+        int x=Integer.parseInt(parts[0]);
+        int y=Integer.parseInt(parts[1]);
+        int val=Integer.parseInt(parts[2]);
+        int prev=Integer.parseInt(parts[3]);
+       control.logUserAction(new UserAction(x,y,val,prev));   //byb3t ll control el user action object 34an el control y3ml append fl file
     }
+    public void undoLast(){
+        control.undoLast();
+    }
+    public boolean isUndoEmpty() {
+        return control.getUndoManager().isEmpty();
+}
+
 }
