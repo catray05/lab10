@@ -32,6 +32,7 @@ public class ThreadManger implements Subject{
     @Override
     public void notify(int [][] solvedBoard)
     {
+        if(done){return;}
         done=true;
         solution=solvedBoard;
         for(int i=0;i<observers.size();i++)
@@ -55,15 +56,16 @@ public class ThreadManger implements Subject{
     }
     public int [][] solve() throws InvalidGame
     {
-        
-        int parts=(9*9*9*9*9)/threadNumber;//n2sm el total number of perm on the threads
+        long total = 1;
+        for(int  i = 0 ; i < 5;i++){total*=9;}
+        long parts=total/threadNumber;//n2sm el total number of perm on the threads
         for(int i=0;i<threadNumber;i++)
         {
-            int start=i*parts;
-            int end=start+parts-1;
+            long start=i*parts;
+            long end=start+parts-1;
             if(i==threadNumber-1)
             {
-            end=9*9*9*9*9-1;
+            end=total-1;
             }
             ThreadSolver tSolver= new ThreadSolver(start, end, board, empty, this);
             Thread t=new Thread(tSolver);
@@ -72,18 +74,22 @@ public class ThreadManger implements Subject{
             
         }
           boolean allFinished = false;
-        while (!done && !allFinished) {
-            allFinished = true;
-            for (int i = 0; i < threads.size(); i++) {
-                if (threads.get(i).isAlive()) {
-                    allFinished = false;
-                    break;
-                }
-            }
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException ignored) {}
-        }
+//        while (!done && !allFinished) {
+//            for (int i = 0; i < threads.size(); i++) {
+//                
+//                if (threads.get(i).isAlive()) {
+//                    allFinished = false;
+//                    break;
+//                }
+//            }
+//                  allFinished = true;     
+
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException ignored) {
+//            
+//            ignored.printStackTrace();}
+//        }
         if (!done) {
             throw new InvalidGame("no solution found");
         }

@@ -21,7 +21,7 @@ public class SudokoSolver implements Observer
     public SudokoSolver(int[][] board, ArrayList<int[]> empty) throws InvalidGame{
         this.board = board;
         this.empty = empty;
-        if(empty.size()!=5)
+        if((empty.size()-1)!=5)
         {
         throw new InvalidGame("empty spaces must be 5!!");
         

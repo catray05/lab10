@@ -37,20 +37,19 @@ public class CheckerColoumn extends Checker {
                  {
                      valid =  false;
                  }
-
-                 for (int k = 0; k < r; k++) {
-                        if (coloumn1[k] == now) { //DUPLICATE!!
+if(now!=0){
+                 for (int k = 0; k <  coloumn1.length; k++) {
+                        if (k != r && coloumn1[k] == now) { //DUPLICATE!!
                             valid = false;
                             break;
                         }
                         
-             }
+             }}
                   cells[r][c] = valid;
          }
              
      }
      return cells;}
-     
   
     
     

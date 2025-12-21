@@ -134,7 +134,8 @@ this.catalog = c;
     public int[][] solveGame(int[][] game) throws InvalidGame {
        
   List<int[]> emptyCells = getEmptyCells(game);
-        if (emptyCells.size() != 5) throw new InvalidGame("exactly 5 empty cell needed");
+        System.err.println(emptyCells.size()-1);
+        if ((emptyCells.size()-1)!= 5) throw new InvalidGame("exactly 5 empty cell needed");
 
         SudokoSolver solver = new SudokoSolver(game, new ArrayList<>(emptyCells));
         return solver.solve();

@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class ThreadSolver implements Runnable {
 
-    private int start;
-    private int end;
+    private long start;
+    private long end;
     private int[][] board;
     private List<int[]> empty;
     private ThreadManger threadManger;
@@ -30,24 +30,23 @@ public class ThreadSolver implements Runnable {
     private Verifier verifier;
 
 
-    public ThreadSolver(int start, int end, int[][] board, List<int[]> empty, ThreadManger threadManger) {
+    public ThreadSolver(long start, long end, int[][] board, List<int[]> empty, ThreadManger threadManger) {
         this.start = start;
         this.end = end;
         this.board = board;
         this.empty = empty;
         this.threadManger = threadManger;
+        this.verifier = new Verifier();
     }
 
     @Override
     public void run() {
         PermutationIterator iterator = new PermutationIterator(new PermutationFlyWeight(5));
-        for (int i = 0; i < start; i++)// bafdl a skip le7ad ma ywsl lel start index
+        for (long i = 0; i < start && iterator.hasNext(); i++)// bafdl a skip le7ad ma ywsl lel start index
         {
-            if (iterator.hasNext()) {
                 iterator.next();
-            }
         }
-        int count = start;
+        long count = start;
         while (iterator.hasNext() && count <= end && !threadManger.isSolutionFound() && !Thread.currentThread().isInterrupted()) {
             int[] combination = iterator.next();
             int[][] boardTemp = copyBoard(board);
@@ -60,21 +59,7 @@ public class ThreadSolver implements Runnable {
 
         }
 
-    int count=start;
-    while(iterator.hasNext()&&count<=end&&! threadManger.isSolutionFound()&&!Thread.currentThread().isInterrupted())
-    {
-        int []combination =iterator.next();
-        int [][] boardTemp=copyBoard(board);
-        fillEmpty(boardTemp, combination);
-        if(h.verify(board).equalsIgnoreCase("valid"))
-        {
-            threadManger.notify(boardTemp);
-            return;//3ashn 5las fe solution was found
-                }
-        count++;
-            
-        
-    }
+   
 
     }
 
@@ -93,23 +78,23 @@ public class ThreadSolver implements Runnable {
         for (int i = 0; i < 5; i++) {
             int r = empty.get(i)[0];
             int c = empty.get(i)[1];
-            board[r][c] = combo[i];
+            board[r][c] = combo[i]+1;
         }
     }
-
-    private boolean isBoardValid(int[][] tempBoard) {
-        boolean valid[][] = verifier.verify(tempBoard);
-        if (valid == null) {
+private boolean isBoardValid(int[][] tempBoard) {
+    boolean valid[][] = verifier.verify(tempBoard);
+    if (valid == null) {
             return false; //le7ad ma ashof fe exception or not
-        }
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
-                if (!valid[r][c]) {
-                    return false;
-                }
-            }
-
-        }
-        return true;
     }
+    for (int r = 0; r < 9; r++) {
+        for (int c = 0; c < 9; c++) {
+            if (!valid[r][c]) {
+                System.out.println("Invalid at: " + r + "," + c);
+                return false;
+            }
+        }
+    }
+    System.out.println("Valid board found!");
+    return true;
+}
 }

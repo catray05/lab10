@@ -126,4 +126,7 @@ public class Saving {
         
         
     } 
+//    public String SaveUnfin(String s){
+//    if(s instanceof == null s.isEmpty())
+//    }
 }

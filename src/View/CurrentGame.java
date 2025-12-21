@@ -108,6 +108,8 @@ else
     newVal=(int)val;
 try{
  game.editcell(r, c, newVal);
+ this.c.setGame(game);
+ this.handler.setControl(this.c);
  
 action="("+r+", "+c+", "+newVal+", "+old+")";
 handler.logUserAction(action);
@@ -117,8 +119,8 @@ handler.logUserAction(action);
         undoBUTTON.setEnabled(true);
     }
  
-    Saving s = new Saving();
-    s.SavingToFolder(game);
+//    Saving s = new Saving();
+//    s.SavingToFolder(game);
 }
 catch(IllegalArgumentException | IOException e){    //btcatch ioexception 34an interface el viewable by throw el exception
 //    JOptionPane.showMessageDialog(this, "INVALID VALUE ENTERED/ENTERED DATA IN UNEDITABLE BLOCK");
