@@ -51,12 +51,36 @@ this.catalog = c;
     @Override
     public int[][] getGame(char level) throws NotFoundException {
      
+        String levelstring = null;
         int[][] board = load.loadGame(level);
         if(board  == null){
-            System.err.println("YARABBBBBBBB MAFIH HAGA 3EDLAAAA");
             return null;
         }
-        this.game=new Game(board,String.valueOf(level),Control.getEmptyCells(board));   //by3ml el game 34an el manager y3rf y track el moves
+        this.game = new Game(board);
+        if (level == 'e')
+        {
+            levelstring = "easy";
+        }
+        else if (level == 'm')
+                {
+                levelstring = "medium";
+                
+                }
+        else if (level == 'h')
+        {
+            levelstring = "hard";
+        }
+        else if (level == 'i')
+        {
+            levelstring = "incomplete";
+        }
+        else 
+        {
+            throw new NotFoundException("ERROR IN DIFFICULTY!!");
+        }
+        this.game.setDifficulty(levelstring);
+        this.game.setEditable(Control.getEmptyCells(board));
+//        this.game=new Game(board,String.valueOf(level),Control.getEmptyCells(board));   //by3ml el game 34an el manager y3rf y track el moves
         undoManager=new UndoManager(game);
         return board;
      
@@ -104,11 +128,24 @@ this.catalog = c;
       removeCells(hardBoard,hardPlaces);
       //kda ehna shelna khlas, el games gahza!
       
-      Game easyGame = new Game(easyBoard, "easy",easyPlaces);
+      //bsm allah, games!
+      Game easyGame = new Game(easyBoard);
+      easyGame.setDifficulty("easy");
+      easyGame.setEditable(easyPlaces);
       
-      Game mediumGame = new Game(mediumBoard, "medium",mediumPlaces);
+//      Game easyGame = new Game(easyBoard, "easy",easyPlaces); 
+
+      Game mediumGame = new Game(mediumBoard);
+      mediumGame.setDifficulty("medium");
+      mediumGame.setEditable(mediumPlaces);
       
-      Game hardGame = new Game(hardBoard, "hard",hardPlaces);
+//      Game mediumGame = new Game(mediumBoard, "medium",mediumPlaces);
+
+     Game hardGame = new Game(hardBoard);
+     hardGame.setDifficulty("hard");
+     hardGame.setEditable(hardPlaces);
+      
+//      Game hardGame = new Game(hardBoard, "hard",hardPlaces);
       
       
       
@@ -150,7 +187,7 @@ this.catalog = c;
     public void logUserAction(UserAction userAction) throws IOException {
         if(undoManager==null)
             undoManager=new UndoManager(this.game);      //lazy init 34an y3ml el manager lw el user 3ml 2y move, undo unneeded w/o moves
-      try(FileWriter writer=new FileWriter("./Levels/unfinished/log.txt", true);){
+      try(FileWriter writer=new FileWriter("./Levels/incomplete/log.txt", true);){
            writer.write(userAction.toString()+"\n");     //append in file bl user action/moves
            undoManager.addAction(userAction);
            
@@ -167,7 +204,7 @@ this.catalog = c;
 }
 
     
-    //helper est3mlnaha abl kda fel Game class
+    
     private int[][] copyBoard(int[][] original) {
     int[][] copy = new int[9][9];
     for (int i = 0; i < 9; i++) {

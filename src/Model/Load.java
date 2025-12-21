@@ -21,7 +21,7 @@ public class Load extends GetBoard{
     private final String ezPath = "./Levels/easy";
     private final String midPath = "./Levels/medium";
     private final String hardPath = "./Levels/hard";
-    private final String unfinishedPath = "./Levels/unfinished";
+    private final String unfinishedPath = "./Levels/incomplete";
     private List<String> names = new ArrayList<>();
 
     public Load() {

@@ -83,14 +83,18 @@ public class Handler implements Viewable{
        
        }
        }
-       Game game = new Game(board, level.toString(),edit);
+       Game game = new Game(board);
+       game.setDifficulty(level.toString());
+       game.setEditable(edit);
+       
+//       Game game = new Game(board, level.toString(),edit);
        if(level!=DifficultyEnum.INCOMPLETE){        //byt2kd en el game new 34an y create log gdid
            try{
-              File unfin = new File("./Levels/unfinished");
+              File unfin = new File("./Levels/incomplete");
               if(!unfin.mkdir()){
                System.out.println("ERROR : CREATING FOLDER");
               }
-               File log=new File("./Levels/unfinished/log.txt");
+               File log=new File("./Levels/incomplete/log.txt");
                log.createNewFile();
            }catch(IOException e){
                System.out.println("ERROR CREATING FILE!");          //momkn n5liha error fl gui b3dein

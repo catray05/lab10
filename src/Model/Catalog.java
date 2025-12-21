@@ -44,7 +44,7 @@ public class Catalog
         }
         else{
         allModesExist = true;}
-        System.out.println(allModesExist);
+        
 return allModesExist;
     }
 

@@ -20,7 +20,7 @@ import java.util.Stack;
 public class UndoManager {
     private Stack<UserAction> actions;
     private Game game;
-    private final File log=new File("./Levels/unfinished/log.txt");
+    private final File log=new File("./Levels/incomplete/log.txt");
 
     public UndoManager(Game game) {
         this.game = game;
