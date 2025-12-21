@@ -21,9 +21,8 @@ public class ThreadSolver implements Runnable {
     private List<int[]> empty;
     private ThreadManger threadManger;
 
-    private static Handler h = new Handler();
+    private Verifier verifier=new Verifier();
 
-    private Verifier verifier;
 
 
     public ThreadSolver(long start, long end, int[][] board, List<int[]> empty, ThreadManger threadManger) {
