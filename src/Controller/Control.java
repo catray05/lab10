@@ -52,6 +52,10 @@ this.catalog = c;
     public int[][] getGame(char level) throws NotFoundException {
      
         int[][] board = load.loadGame(level);
+        if(board  == null){
+            System.err.println("YARABBBBBBBB MAFIH HAGA 3EDLAAAA");
+            return null;
+        }
         this.game=new Game(board,String.valueOf(level),Control.getEmptyCells(board));   //by3ml el game 34an el manager y3rf y track el moves
         undoManager=new UndoManager(game);
         return board;

@@ -102,6 +102,7 @@ public class LevelsOfDifficult extends javax.swing.JDialog {
                 CurrentGame frame = new CurrentGame(game,parent);
                 frame.setVisible(true);
                 this.setVisible(Boolean.FALSE);
+                parent.setVisible(Boolean.FALSE);
             }
             else
                 JOptionPane.showMessageDialog(this, "Game is null!");

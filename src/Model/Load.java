@@ -22,9 +22,10 @@ public class Load extends GetBoard{
     private final String midPath = "./Levels/medium";
     private final String hardPath = "./Levels/hard";
     private final String unfinishedPath = "./Levels/unfinished";
-    private List<String> names;
+    private List<String> names = new ArrayList<>();
 
     public Load() {
+        names = new ArrayList<>();
     }
 
    
@@ -61,8 +62,7 @@ public class Load extends GetBoard{
     String s = f.toString();
 
          int ext = s.lastIndexOf(".");
-         String s1 = s.substring(ext);
-         if(s1.equals("csv")){
+         if(s.endsWith("csv")){
          names.add(s.substring(0, ext));
          
          }
@@ -73,8 +73,8 @@ public class Load extends GetBoard{
     String s = f.toString();
 
          int ext = s.lastIndexOf(".");
-         String s1 = s.substring(ext);
-         if(s1.equals("csv")){
+        
+         if(s.endsWith(".csv")){
          names.add(s.substring(0, ext));
          
          }
@@ -85,8 +85,8 @@ public class Load extends GetBoard{
     String s = f.toString();
 
          int ext = s.lastIndexOf(".");
-         String s1 = s.substring(ext);
-         if(s1.equals("csv")){
+        
+         if(s.endsWith(".csv")){
          names.add(s.substring(0, ext));
          
          }
@@ -98,8 +98,8 @@ public class Load extends GetBoard{
     String s = f.toString();
 
          int ext = s.lastIndexOf(".");
-         String s1 = s.substring(ext);
-         if(s1.equals("csv")){
+         
+         if(s.endsWith(".csv")){
          names.add(s.substring(0, ext));
          
          }
@@ -124,9 +124,10 @@ public class Load extends GetBoard{
    if(file!=null){
     int[][] data =  ReadData(file);
     File f = new File(file);
+    if(lvl!='i'){
     if (!f.delete()) {
         System.out.println("NOT DELETED");
-    }
+    }}
      return data;
 
   }
@@ -148,26 +149,23 @@ return data;
  switch (lvl){
      case 'i':
           File unfin = new File(unfinishedPath);
-          
+           if (!unfin.exists() || !unfin.isDirectory()) {
+        return null;
+    }
             File[] contentsunfin = unfin.listFiles();
             int numunfin = 0 ; 
             if(contentsunfin!=null&&contentsunfin.length>=1){
             for(File f : contentsunfin){
-               String fn = f.toString();
-               int i = fn.lastIndexOf(".");
-               String sub = fn.substring(i);
-               if(sub.equals(".csv")){
+               if(f.isFile()&&f.getName().endsWith(".csv")){
                numunfin++;
                }
        
             
             }
-            if(numunfin>=1 ){
-                System.out.println("MULTIPLE UNFINISHED");
+            if(numunfin!=1 ){
+                System.out.println("NO UNFINHED OR EVERAL UNFINIHED");
             return null;
             
-            }else if(numunfin  == 0){
-            return null;
             }
             }
          
@@ -192,7 +190,11 @@ return data;
  
  }
 File f = new File(path);
-   File[] content = f.listFiles();
+
+   File[] content= f.listFiles(file -> 
+    file.isFile() && file.getName().endsWith(".csv")
+);
+   
    if (content != null && content.length !=0) {
     Arrays.sort(content, (f1, f2) -> {
         try {

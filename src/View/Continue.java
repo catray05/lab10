@@ -7,8 +7,8 @@ package View;
 import Controller.Handler;
 import Controller.MainStartUp;
 import Model.DifficultyEnum;
-import static Model.DifficultyEnum.INCOMPLETE;
 import Model.Game;
+import Model.NotFoundException;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -25,10 +25,12 @@ public class Continue extends javax.swing.JFrame {
      * Creates new form Continue
      */
     Handler handler;
+    private java.awt.Frame parent;
     private MainStartUp mainStartUp;
-    public Continue(MainStartUp aThis) {
+    public Continue( MainStartUp aThis) {
         this.handler  = new Handler();
-        this.mainStartUp = aThis;
+      
+        mainStartUp = aThis;
         initComponents();
         
         //ll background
@@ -116,25 +118,26 @@ public class Continue extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void continueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueButtonActionPerformed
-        Game game = null;
-        try{  
-         game = handler.getGame(DifficultyEnum.INCOMPLETE);
-        }catch(Exception e){
-        e.printStackTrace();
+        try{
+      Game game = handler.getGame(DifficultyEnum.INCOMPLETE);
+           
+            if (game!=null)
+            { game.setDifficulty("incomplete");
+                CurrentGame frame = new CurrentGame(game,this);
+                frame.setVisible(true);
+                 this.setVisible(Boolean.FALSE);
+                
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Game is null!");
+        } catch (NotFoundException e) {
+            JOptionPane.showMessageDialog(this,"ERROR IN GENERATING GAMES!");
         }
-          if(game!=null){
-          ///halyan b-handle da
-          CurrentGame frame = new CurrentGame(game,this);
-          frame.setVisible(true);}
-          else{
-              JOptionPane.showMessageDialog(this, "NO GAME FOUND!!");
-          }
+
     }//GEN-LAST:event_continueButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     
-        StartUp frame = new StartUp(mainStartUp);
-        frame.setVisible(true);
+    
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
