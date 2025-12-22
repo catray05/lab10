@@ -46,9 +46,9 @@ public class GetterOfRCB {
     {
         int[][][] boxes = new int[9][3][3];
         int boxNum = 0;
-            for(int OuterC = 0; OuterC < 3;OuterC++)
+            for(int OuterR = 0; OuterR < 3;OuterR++)
             {
-                for(int OuterR=0; OuterR<3 ;OuterR++)
+                for(int OuterC=0; OuterC<3 ;OuterC++)
                 {
                     //hatenahm 3 3shan 3yzyn 3 rows w 3 coloumns fel box el wahed
                     for(int coloumn = 0 ; coloumn < 3 ; coloumn ++)

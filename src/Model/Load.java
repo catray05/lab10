@@ -139,9 +139,7 @@ if(!f.exists()){
 return null;
 }
 int[][] data =  ReadData(f.toString());
-if (!f.delete()) {
-System.out.println("NOT DELETED");
-    }
+
 return data;
   }
   private String helperGetGames(char lvl){

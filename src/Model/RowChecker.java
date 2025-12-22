@@ -35,6 +35,14 @@ public class RowChecker extends  Checker {
                 cells[r][c] = valid;
             }
         }
+//        for (int i = 0 ; i < 9 ; i ++)
+//        {
+//            for (int j=0;j<9;j++)
+//            {
+//                System.out.println("ROWWW!!!");
+//                System.out.println("Row: " + i + "Coloumn: " + j + "state : " + cells[i][j]);
+//            }
+//        }
         return cells;
     }
 

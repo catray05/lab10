@@ -15,6 +15,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import Model.DifficultyEnum;
 import Model.Saving;
+import Model.UndoManager;
+import java.awt.Color;
 
 
 /**
@@ -36,7 +38,7 @@ private Control c ;
         
         initComponents();
         
-          undoBUTTON.setEnabled(false);
+             undoBUTTON.setEnabled(false);
              solveBUTTON.setEnabled(false);
         this.game=game;
       
@@ -78,12 +80,10 @@ class sudokuTable extends javax.swing.table.DefaultTableModel{
         }
         
 
-    
-    
-    
 }
 
 private void loadtable(){
+    
 Object[][] data = new Object[9][9];
 int[][] board = game.getBoard();
 for (int i = 0 ; i < 9 ; i ++ ) {
@@ -99,10 +99,13 @@ String[] cols = {"", "", "", "", "", "", "", "", ""};
 matrixGame.setModel(
 new sudokuTable(game.getEditable(),data, cols)
     );
-matrixGame.setRowHeight(30);
+matrixGame.setRowHeight(40);
+sudokuTablecellRender rend=new sudokuTablecellRender();
 for (int i = 0; i < matrixGame.getColumnCount(); i++) {
-    matrixGame.getColumnModel().getColumn(i).setPreferredWidth(30);
+    matrixGame.getColumnModel().getColumn(i).setCellRenderer(rend);
+matrixGame.getColumnModel().getColumn(i).setPreferredWidth(40);
 }
+
 
 matrixGame.getModel().addTableModelListener(l -> {
 int r = l.getFirstRow();
@@ -119,7 +122,7 @@ try{
  game.editcell(r, c, newVal);
  this.c.setGame(game);
  this.handler.setControl(this.c);
- 
+
  
 action="("+r+", "+c+", "+newVal+", "+old+")";
 handler.logUserAction(action);
@@ -143,7 +146,17 @@ handler.logUserAction(action);
 //    Saving s = new Saving();
 //    s.SavingToFolder(game);
 
-
+    if(handler.isUndoEmpty()) {  
+        undoBUTTON.setEnabled(false);
+    } else {
+        undoBUTTON.setEnabled(true);
+    }
+             int empty = numberOfEmptySpaces();
+        if(empty == 5) {
+             solveBUTTON.setEnabled(true);
+         } else {
+             solveBUTTON.setEnabled(false);
+        }
 }
 catch(IllegalArgumentException | IOException e){    //btcatch ioexception 34an interface el viewable by throw el exception
 //    JOptionPane.showMessageDialog(this, "INVALID VALUE ENTERED/ENTERED DATA IN UNEDITABLE BLOCK");
@@ -152,6 +165,21 @@ JOptionPane.showMessageDialog(this, "Error!");
 }
 });
 }
+class sudokuTablecellRender extends javax.swing.table.DefaultTableCellRenderer{
+    @Override
+    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table,Object value,boolean isSelected,boolean hasFocus,int row,int column){
+    super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
+    javax.swing.table.TableModel model= table.getModel();
+    if(!model.isCellEditable(row,column)){
+    setBackground(java.awt.Color.LIGHT_GRAY);
+    setForeground(Color.BLACK);
+    }else{
+    setBackground(java.awt.Color.WHITE);
+    }
+    setHorizontalAlignment(CENTER);
+    return this;
+    }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -279,35 +307,46 @@ JOptionPane.showMessageDialog(this, "Error!");
     }//GEN-END:initComponents
 
     private void validateBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validateBUTTONActionPerformed
-      int[][] board = game.getBoard();
-        boolean[][] result = c.verifyGame(board);
-        boolean val = false;
-        for(int i = 0 ; i < 9 ; i++)
-        {
-            for(int j = 0 ; j < 9 ; j ++)
-            {
-                if(!result[i][j] || board[i][j]==0)
-                {
-                    //kda y3ne fe cell mesh sah!!
-                    //neshuf ba han-handle ezay
-                    val = true;
-                    
-                }
-            }
-        }
-        if(val){
-        JOptionPane.showMessageDialog(this, "ONE OR MORE CELL IS INCORRECT");
+        int places= 1;
+       places = numberOfEmptySpaces();
+      if ( places != 0 )
+      {
+          JOptionPane.showMessageDialog(this, "One or more cell is empty!");
+          return;
+      }
+//        int[][] board = game.getBoard();
+        String result = handler.verifyGame(game);
+//        boolean val = false;
+//        for(int i = 0 ; i < 9 ; i++)
+//        {
+//            for(int j = 0 ; j < 9 ; j ++)
+//            {
+//                if(!result[i][j] || board[i][j]==0)
+//                {
+//                    //kda y3ne fe cell mesh sah!!
+//                    //neshuf ba han-handle ezay
+//                    val = true;
+//                    
+//                }
+//            }
+//        }
+       
+      
         
-        }
-        else{
-          JOptionPane.showMessageDialog(this, "CORRECTTTTT");
+        if(result.equals("valid"))
+            {JOptionPane.showMessageDialog(this, "CORRECTTTTT");
+          
           Saving save = new Saving();
           save.removeALLFILEsUnfin();
            this.setVisible(Boolean.FALSE);
             MainStartUp.restart(); 
+          }
+        else{
+              JOptionPane.showMessageDialog(this, result);
+        }
                 
           
-        }
+        
 
     }//GEN-LAST:event_validateBUTTONActionPerformed
 
@@ -378,6 +417,16 @@ JOptionPane.showMessageDialog(this, "Error!");
     private void undoBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoBUTTONActionPerformed
         // TODO add your handling code here:
         handler.undoLast();
+        int places = 0;
+ places = numberOfEmptySpaces();
+ if(places == 5)
+        {
+            solveBUTTON.setEnabled(true);
+            
+        }
+        else{
+     solveBUTTON.setEnabled(false);
+ }
         loadtable();
         if(handler.isUndoEmpty()) {  
         undoBUTTON.setEnabled(false);

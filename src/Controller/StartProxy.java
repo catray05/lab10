@@ -12,25 +12,27 @@ import Model.Catalog;
  */
 public class StartProxy implements StartStrategy {
     private StartStrategy realStart;
-    private Catalog catalog;
+ 
     private Control control;
     private MainStartUp startup;
+    private Handler handler;
 
-    public StartProxy(Catalog catalog, Control control, MainStartUp startup) {
-        this.catalog = catalog;
-        this.control = control;
+    public StartProxy(Handler handler, MainStartUp startup) {
+
+        this.handler = handler;
         this.startup = startup;
-        this.control.SetCatalog(catalog);
+     
     }
 
     @Override
     public void start() {
-        if (catalog.hasUnfinishedGame()) {
+        Catalog catalog = handler.getCatalog();
+        if (catalog.isCurrent()) {
             realStart = new ContinueGame(startup);
-        } else if (catalog.hasAllDifficulties()) {
+        } else if (catalog.isAllModesExist()) {
             realStart = new StartNewGame(startup);
         } else {
-            realStart = new SolutionFinder(control);   //bnb3t control 3shan haga kda, MHTAGEN N CHECK!!!!
+            realStart = new SolutionFinder(handler);   //bnb3t control 3shan haga kda, MHTAGEN N CHECK!!!!
         }
 
         realStart.start();
