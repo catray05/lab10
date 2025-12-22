@@ -35,8 +35,11 @@ private Control c ;
     public CurrentGame(Game game, java.awt.Frame parentFrame) {
         
         initComponents();
+        
+          undoBUTTON.setEnabled(false);
+             solveBUTTON.setEnabled(false);
         this.game=game;
-        undoBUTTON.setEnabled(false);
+      
         game.setDifficulty("incomplete");
         handler = new Handler();
         c= new Control(handler.getCatalog(),new Load() );
@@ -44,11 +47,11 @@ private Control c ;
         handler.setControl(c);
         
         loadtable();
+     
+        
     }
 
-    private CurrentGame() {
-       //mo2ktan 3shan el error bs
-    }
+    
 class sudokuTable extends javax.swing.table.DefaultTableModel{
     private final List<int []>edit;
 
@@ -66,12 +69,12 @@ class sudokuTable extends javax.swing.table.DefaultTableModel{
             return true;
             }
             }
-            return false; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            return false; 
         }
 
         @Override
         public Class<?> getColumnClass(int columnIndex) {
-            return Integer.class; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            return Integer.class; 
         }
         
 
@@ -96,6 +99,10 @@ String[] cols = {"", "", "", "", "", "", "", "", ""};
 matrixGame.setModel(
 new sudokuTable(game.getEditable(),data, cols)
     );
+matrixGame.setRowHeight(30);
+for (int i = 0; i < matrixGame.getColumnCount(); i++) {
+    matrixGame.getColumnModel().getColumn(i).setPreferredWidth(30);
+}
 
 matrixGame.getModel().addTableModelListener(l -> {
 int r = l.getFirstRow();
@@ -113,6 +120,7 @@ try{
  this.c.setGame(game);
  this.handler.setControl(this.c);
  
+ 
 action="("+r+", "+c+", "+newVal+", "+old+")";
 handler.logUserAction(action);
  if(handler.isUndoEmpty()) {  
@@ -120,14 +128,27 @@ handler.logUserAction(action);
     } else {
         undoBUTTON.setEnabled(true);
     }
+ int places = 0;
+ places = numberOfEmptySpaces();
+ if(places == 5)
+        {
+            solveBUTTON.setEnabled(true);
+            
+        }
+        else{
+     solveBUTTON.setEnabled(false);
+ }
  Saving  save = new Saving();
  save.SavingToFolder(game);
 //    Saving s = new Saving();
 //    s.SavingToFolder(game);
+
+
 }
 catch(IllegalArgumentException | IOException e){    //btcatch ioexception 34an interface el viewable by throw el exception
 //    JOptionPane.showMessageDialog(this, "INVALID VALUE ENTERED/ENTERED DATA IN UNEDITABLE BLOCK");
 e.printStackTrace();
+JOptionPane.showMessageDialog(this, "Error!");
 }
 });
 }
@@ -309,13 +330,17 @@ e.printStackTrace();
     }
     private void solveBUTTONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveBUTTONActionPerformed
        
+        int empty = numberOfEmptySpaces();
+        if(empty == 5) {
+             solveBUTTON.setEnabled(true);
+         } else {
+             solveBUTTON.setEnabled(false);
+        }
+
+       
       int[]solve =null;
       try {
-          System.out.println("Editable cells:");
-for (int[] cell : game.getEditable()) {
-    System.out.println("Row " + cell[0] + ", Col " + cell[1]);
-}
-
+          
        solve = handler.solveGame(this.game); 
       }
       catch (InvalidGame e){

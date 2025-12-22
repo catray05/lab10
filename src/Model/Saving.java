@@ -40,7 +40,7 @@ public class Saving {
                 path="Levels/hard";
                 break;
             case "incomplete":
-                path  ="Levels/unfinished";
+                path  ="Levels/incomplete";
                 
                  File unfin = new File(path);
 if (!unfin.exists()) {
@@ -144,7 +144,7 @@ unfin.mkdirs();
     } 
     public void removeALLFILEsUnfin(){
     
-    String path  ="Levels/unfinished";
+    String path  ="Levels/incomplete";
                 
                  File unfin = new File(path);
                  
