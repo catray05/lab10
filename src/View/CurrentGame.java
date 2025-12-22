@@ -35,8 +35,11 @@ private Control c ;
     public CurrentGame(Game game, java.awt.Frame parentFrame) {
         
         initComponents();
+        
+          undoBUTTON.setEnabled(false);
+             solveBUTTON.setEnabled(false);
         this.game=game;
-        undoBUTTON.setEnabled(false);
+      
         game.setDifficulty("incomplete");
         handler = new Handler();
         c= new Control(handler.getCatalog(),new Load() );
@@ -44,6 +47,8 @@ private Control c ;
         handler.setControl(c);
         
         loadtable();
+     
+        
     }
 
     
@@ -123,6 +128,16 @@ handler.logUserAction(action);
     } else {
         undoBUTTON.setEnabled(true);
     }
+ int places = 0;
+ places = numberOfEmptySpaces();
+ if(places == 5)
+        {
+            solveBUTTON.setEnabled(true);
+            
+        }
+        else{
+     solveBUTTON.setEnabled(false);
+ }
  Saving  save = new Saving();
  save.SavingToFolder(game);
 //    Saving s = new Saving();
