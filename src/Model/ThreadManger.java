@@ -65,7 +65,7 @@ public class ThreadManger implements Subject{
             {
                 end=total-1;
             }
-            System.out.println("Starting Thread " + i + " range: " + start + " to " + end);
+//            System.out.println("Starting Thread " + i + " range: " + start + " to " + end);
             ThreadSolver tSolver= new ThreadSolver(start, end, board, empty, this);
             Thread t=new Thread(tSolver);
             threads.add(t);

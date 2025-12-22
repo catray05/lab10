@@ -21,9 +21,9 @@ public interface Controllable
     
     
     
-  Catalog getCatalog();
+  boolean[] getCatalog();
   int[][] getGame(char level) throws NotFoundException;
-  void driveGames(int[][] source) throws SolutionInvalidException;
+  void driveGames(String sourcePath) throws SolutionInvalidException;
   // A boolean array which says if a specifc cell is correct or invalid
   boolean[][] verifyGame(int[][] game);
   // contains the cell x, y and solution for each missing cell

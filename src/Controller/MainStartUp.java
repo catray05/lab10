@@ -13,9 +13,9 @@ import Model.*;
  */
 public  class MainStartUp {
     private Catalog catalog;
-    private Control control;
+   private Handler handler;
     
-    private Load l ;
+    
         boolean current;
         boolean allModesExsist;
     
@@ -25,15 +25,14 @@ public  class MainStartUp {
     }
     
     public MainStartUp() {
-        catalog = new Catalog(current, allModesExsist);
-        control = new Control(catalog,l);
+        handler = new Handler();
     }
         
        
     
     public void start() {
         
-        StartStrategy start = new StartProxy(catalog, control, this);  //MTAGEN NESHUF HWAR EL CONTROL DA!!
+        StartStrategy start = new StartProxy(handler, this);  //MTAGEN NESHUF HWAR EL CONTROL DA!!
         start.start();
         
     }

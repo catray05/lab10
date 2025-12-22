@@ -22,7 +22,7 @@ public class CheckerColoumn extends Checker {
      public boolean[][] check(int[][] sudoku)
      {
           boolean[][] cells = new boolean[9][9];
-          boolean valid;
+   
          int[][] coloumns = getterfor.getterfor(sudoku, 'c'); 
          
          for(int c = 0 ; c < 9 ; c++ )
@@ -31,10 +31,10 @@ public class CheckerColoumn extends Checker {
              
              for(int r = 0 ; r < coloumn1.length ; r++ )
              {
-                   valid = true;
+                 boolean  valid = true;
                  int now = coloumn1[r];
                  
-if(now!=0){
+                 if(now!=0){
                  for (int k = 0; k <  coloumn1.length; k++) {
                         if (k != r && coloumn1[k] == now) { //DUPLICATE!!
                             valid = false;
@@ -46,6 +46,14 @@ if(now!=0){
          }
              
      }
+//          for (int i = 0 ; i < 9 ; i ++)
+//        {
+//            for (int j=0;j<9;j++)
+//            {
+//                System.out.println("COLUMN!!");
+//                System.out.println("Row: " + i + "Coloumn: " + j + "state : " + cells[i][j]);
+//            }
+//        }
      return cells;}
   
     

@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.HashMap;
+
 /**
  *
  * @author DELL
@@ -19,38 +21,39 @@ public class CheckerBox extends Checker {
     @Override
     public boolean[][] check(int[][] sudoku )
     {
-        boolean[][] cells = new boolean[9][9];
-          boolean valid;
-        int[][][] boxes = getterfor.getBoxes(sudoku);
-        
-        //yarab enta 3aref
-        for(int box = 0 ; box < 9 ; box ++ ) //homa 9 boxes total
-        {
-            int[][] box1 = boxes[box]; //ngeb box rkm n , 0 aw 1 aw 2 aw ...
+          int[][][] boxes=getterfor.getBoxes(sudoku);
+       boolean [][]cells = new boolean[9][9];
+       for(int i = 0 ; i < 9 ; i ++ ){
+       for(int j = 0 ; j < 9 ; j ++ ){
+       cells[i][j]= true;
+       }
+       }
+        HashMap <Integer ,Boolean> covered = new HashMap<>();
+        int counter = 0 ;
+        for(int [][]box:boxes){
             
-            for(int row = 0 ; row < 3 ; row ++) //kol box feh 3 rows
-            {
-                for(int col = 0 ; col < 3 ; col ++ ) //kol box feh 3 coloumns
-                {
-                    valid = true; // reset for each cell
-                    int now = box1[row][col]; //ngeb el value eli 3yzeno (el square DA)
-                    if(now != 0)
-                    {
-                        for(int rPrev = 0; rPrev < 3; rPrev++) {
-                            for(int cPrev = 0; cPrev < 3; cPrev++) {
-                                if(rPrev == row && cPrev == col) continue;
-                                if(box1[rPrev][cPrev] == now) {
-                                    valid = false;
-                                    break;
-                                }
-                            }
-                            if(!valid) break;
-                        }
-                    }
-                    cells[(box / 3) * 3 + row][(box % 3) * 3 + col] = valid;
-                }
+        
+        for(int i = 1 ; i <= 9 ; i ++){
+        covered.put(i, Boolean.FALSE);
+        }
+        for(int row=0;row<3;row++){
+            for(int col=0;col<3;col++){
+                int now=box[row][col];
+                if(now==0)
+                    continue; //for now
                 
-             } 
+                //ana asfa
+                if(covered.get(now)){
+                 cells[((counter / 3) * 3 + row)][(counter % 3) * 3 + col] = false;
+                }
+                else{
+                covered.put(now, Boolean.TRUE);
+                }
+            }
+      
+        }
+        
+         counter ++;
         }
          return cells;           
     }

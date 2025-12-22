@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.Game;
 import Model.Load;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -15,29 +16,27 @@ import View.StartUp;
  * @author DELL
  */
 public class SolutionFinder implements StartStrategy{   //third option, if both are false
-    Control control;  //el interface
+    
+    Handler handler;
 
-    public SolutionFinder(Control control) {
-        this.control = control;
+    public SolutionFinder(Handler handler) {
+        this.handler = handler;
     }
     
     
     @Override
     public void start(){
-         JFileChooser chooser = new JFileChooser();
-            int result = chooser.showOpenDialog(null);
-            if (result == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-
-         int[][] solved = Load.loadSolution(file);
+         
 
         try {
-            control.driveGames(solved);  //MESH 3ARFA ANADY MN HANDLER L2NAHA 3YZA GAME TYPE OF OBJECT WANA M3ISH DIFFICULTY ANA LESA 73ML
-            JOptionPane.showMessageDialog(null, "Levels generated!");
-                  new StartUp().setVisible(true);
+            int[][] nullboard = new int[9][9];
+            Game game = new Game(nullboard);
+            handler.driveGames(game);  //MESH 3ARFA ANADY MN HANDLER L2NAHA 3YZA GAME TYPE OF OBJECT WANA M3ISH DIFFICULTY ANA LESA 73ML
+           
         } catch (SolutionInvalidException e) {
             JOptionPane.showMessageDialog(null, "Invalid solved file!");
+            System.exit(0);
         }
          }
     }
-}
+

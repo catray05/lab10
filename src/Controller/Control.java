@@ -6,6 +6,7 @@ package Controller;
 
 import Model.SudokoSolver;
 import Model.*;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,14 +28,30 @@ public class Control implements Controllable {
 
       
     @Override
-    public Catalog getCatalog() {
+    public boolean[] getCatalog() {
+        boolean[] catalog = new boolean[2]; //aw 1
+        
+       if(load.loadGame('i') == null)
+        {
+            catalog[0] = false;
+        }else{
+        catalog[0] = true;}
+       if(load.checkGame('e') == false || load.checkGame('m') == false ||  load.checkGame('h') == false )
+        {
+            catalog[1] = false;
+            
+        }
+        else{
+        catalog[1] = true;}
+        
+
+       
         return catalog;
     }
+    
+    
 public void SetCatalog(Catalog c){
 this.catalog = c;
-
-        
-   
 }
 
     public Control(Catalog catalog, Load load) {
@@ -88,7 +105,10 @@ this.catalog = c;
    
 
     @Override
-    public void driveGames(int[][] source) throws SolutionInvalidException {
+    public void driveGames(String sourcePath) throws SolutionInvalidException {
+        
+        File file = new File(sourcePath);
+        int[][] source = Load.loadSolution(file);
         
       if (source == null || source[0].length != 9 || source.length != 9) {
         throw new SolutionInvalidException("ERROR! INVALID OR INCOMPLETE SOLUTION!!");  //da el exception eli han3mlo

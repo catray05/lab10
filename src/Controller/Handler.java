@@ -16,6 +16,9 @@ import Model.SolutionInvalidException;
 import Model.UserAction;
 import java.io.File;
 import Model.NotFoundException;
+import View.StartUp;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,7 +43,12 @@ public class Handler implements Viewable{
 
     @Override
     public Catalog getCatalog() {
+        
+        boolean[] currentAndAll = control.getCatalog();
+        this.catalog.setAllModesExist(currentAndAll[1]);
+        this.catalog.setCurrent(currentAndAll[0]);
         return catalog;
+        
     }
 
     @Override
@@ -77,7 +85,7 @@ public class Handler implements Viewable{
        for(int j = 0 ; j < 9 ; j ++ ){
            if(board[i][j]<=0){
            edit.add(new int[]{i,j});
-           System.out.println(i +"  "+j+"  " +  board[i][j]  + "  "  +  Math.abs(board[i][j]));
+//           System.out.println(i +"  "+j+"  " +  board[i][j]  + "  "  +  Math.abs(board[i][j]));
            board[i][j] =  Math.abs(board[i][j]);
            }
        
@@ -108,7 +116,22 @@ public class Handler implements Viewable{
     public void driveGames(Game source) throws SolutionInvalidException {   //eli hay3mlha call lazm y catch w y-show message mwgoda fel pdf!!
         if (source == null) return;
         try{
-        control.driveGames(source.getBoard());}
+            
+            JFileChooser chooser = new JFileChooser();
+            int result = chooser.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            String path = file.toString();
+      try{
+           control.driveGames(path);
+            JOptionPane.showMessageDialog(null, "Levels generated!");
+            new StartUp().setVisible(true);}
+      catch (SolutionInvalidException e)
+      {
+          throw new SolutionInvalidException("Error in generating levels!!");
+      }
+            }
+        }
         catch(Exception e){
         throw new SolutionInvalidException("ERROR ! INCOMPLETE/INVALID!");
         }

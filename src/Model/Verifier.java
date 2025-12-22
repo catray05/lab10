@@ -37,7 +37,10 @@ public class Verifier {
             for ( int j = 0 ; j < 9 ; j ++ )
             {
                 fin[i][j] = rowboolean[i][j] && columnboolean[i][j] && boxboolean[i][j];
+//                boolean state = fin[i][j];
+//                System.out.println("Row: "+i+"Coloumn: "+j+"is: "+state);
             }
+            
         }
         return fin;
         

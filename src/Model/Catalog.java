@@ -26,27 +26,16 @@ public class Catalog
 //    hasAllDifficulties();
 //    }
 
-    public  boolean hasUnfinishedGame() {
-        if(load.loadGame('i') == null)
-        {
-            current = false;
-        }else{
-        current = true;}
-        return current;
+    public void setCurrent(boolean current) {
+        this.current = current;
     }
 
-    public  boolean hasAllDifficulties() {
-      
-        if(load.checkGame('e') == false || load.checkGame('m') == false ||  load.checkGame('h') == false )
-        {
-            allModesExist = false;
-            
-        }
-        else{
-        allModesExist = true;}
-        
-return allModesExist;
+    public void setAllModesExist(boolean allModesExist) {
+        this.allModesExist = allModesExist;
     }
+
+    
+
 
     public boolean isCurrent() {
         return current;
